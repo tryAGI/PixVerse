@@ -1,0 +1,923 @@
+openapi: 3.0.3
+info:
+  title: PixVerse Platform API
+  version: 1.0.0
+  description: API for PixVerse text-to-video, image-to-video, video editing, media upload, and account balance operations.
+servers:
+  - url: https://app-api.pixverse.ai/openapi/v2
+security:
+  - ApiKeyAuth: []
+paths:
+  /video/text/generate:
+    post:
+      operationId: createTextToVideo
+      summary: Create a text-to-video generation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/img/generate:
+    post:
+      operationId: createImageToVideo
+      summary: Create an image-to-video generation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageToVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/transition/generate:
+    post:
+      operationId: createTransitionVideo
+      summary: Create a first-frame to last-frame transition video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransitionVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/fusion/generate:
+    post:
+      operationId: createFusionVideo
+      summary: Create a reference-to-video generation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FusionVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/multi_transition/generate:
+    post:
+      operationId: createMultiTransitionVideo
+      summary: Create a multi-keyframe transition video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiTransitionVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/restyle/generate:
+    post:
+      operationId: createRestyleVideo
+      summary: Restyle a generated or uploaded video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestyleVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/restyle/list:
+    get:
+      operationId: listRestyleEffects
+      summary: List supported restyle effects.
+      responses:
+        '200':
+          description: Restyle effect list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestyleListApiResponse'
+  /video/swap/generate:
+    post:
+      operationId: createSwapVideo
+      summary: Replace a selected object in a video with an uploaded image.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwapVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/sound_effect/generate:
+    post:
+      operationId: createSoundEffect
+      summary: Generate sound effects for a video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SoundEffectRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/extend/generate:
+    post:
+      operationId: createVideoExtension
+      summary: Extend an existing generated video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/mimic/generate:
+    post:
+      operationId: createMimicVideo
+      summary: Create a mimic video generation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MimicVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/modify/generate:
+    post:
+      operationId: createModifiedVideo
+      summary: Modify an existing video using a prompt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyVideoRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/mask/selection:
+    post:
+      operationId: createVideoMaskSelection
+      summary: Create a mask selection for object replacement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaskSelectionRequest'
+      responses:
+        '200':
+          description: Mask selection response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaskSelectionApiResponse'
+  /video/result/{id}:
+    get:
+      operationId: getVideoResult
+      summary: Get video generation status and result URL.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Video generation status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoResultApiResponse'
+  /video/lip_sync/generate:
+    post:
+      operationId: createLipSyncVideo
+      summary: Create a lip-sync video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LipSyncRequest'
+      responses:
+        '200':
+          description: Generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationApiResponse'
+  /video/lip_sync/tts_list:
+    get:
+      operationId: listLipSyncTtsVoices
+      summary: List available lip-sync TTS voices.
+      responses:
+        '200':
+          description: Voice list response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LipSyncTtsListApiResponse'
+  /image/template/generate:
+    post:
+      operationId: createImageTemplate
+      summary: Create an image from a template.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageTemplateRequest'
+      responses:
+        '200':
+          description: Image generation job response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationApiResponse'
+  /image/result/{image_id}:
+    get:
+      operationId: getImageResult
+      summary: Get image generation status and result URL.
+      parameters:
+        - name: image_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Image generation status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResultApiResponse'
+  /image/upload:
+    post:
+      operationId: uploadImage
+      summary: Upload an image for use in generation requests.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - image
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Uploaded image response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageUploadApiResponse'
+  /media/upload:
+    post:
+      operationId: uploadMedia
+      summary: Upload media for use in generation requests.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - media
+              properties:
+                media:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Uploaded media response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadApiResponse'
+  /account/balance:
+    get:
+      operationId: getAccountBalance
+      summary: Get the current PixVerse API account balance.
+      responses:
+        '200':
+          description: Account balance response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceApiResponse'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: API-KEY
+  schemas:
+    ApiResponseBase:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+    CommonVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+    TextToVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+      required:
+        - prompt
+    ImageToVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        img_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+      required:
+        - img_id
+    TransitionVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        first_frame_img_id:
+          type: integer
+          format: int64
+        last_frame_img_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+      required:
+        - first_frame_img_id
+        - last_frame_img_id
+    FusionVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        image_references:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageReference'
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+    MultiTransitionVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        keyframes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyframeImage'
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+    RestyleVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_id:
+          type: integer
+          format: int64
+        video_media_id:
+          type: integer
+          format: int64
+        style:
+          type: string
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+    SwapVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_media_id:
+          type: integer
+          format: int64
+        keyframe_id:
+          type: integer
+          format: int64
+        mask_id:
+          type: integer
+          format: int64
+        img_id:
+          type: integer
+          format: int64
+    SoundEffectRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+    ExtendVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+        duration:
+          type: integer
+          format: int32
+    MimicVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        prompt:
+          type: string
+        model:
+          $ref: '#/components/schemas/PixVerseModel'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+        quality:
+          $ref: '#/components/schemas/VideoQuality'
+        aspect_ratio:
+          $ref: '#/components/schemas/AspectRatio'
+        motion_mode:
+          type: string
+        negative_prompt:
+          type: string
+        seed:
+          type: integer
+          format: int64
+    ModifyVideoRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_id:
+          type: integer
+          format: int64
+        video_media_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+    MaskSelectionRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_media_id:
+          type: integer
+          format: int64
+        frame_index:
+          type: integer
+          format: int32
+        point:
+          $ref: '#/components/schemas/Point'
+    LipSyncRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        video_id:
+          type: integer
+          format: int64
+        video_media_id:
+          type: integer
+          format: int64
+        audio_media_id:
+          type: integer
+          format: int64
+        voice_id:
+          type: string
+        text:
+          type: string
+    ImageTemplateRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        template_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+        img_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+    ImageReference:
+      type: object
+      additionalProperties: true
+      properties:
+        type:
+          type: string
+        img_id:
+          type: integer
+          format: int64
+        ref_name:
+          type: string
+    KeyframeImage:
+      type: object
+      additionalProperties: true
+      properties:
+        img_id:
+          type: integer
+          format: int64
+        prompt:
+          type: string
+        duration:
+          type: integer
+          format: int32
+    Point:
+      type: object
+      additionalProperties: true
+      properties:
+        x:
+          type: number
+          format: float
+        y:
+          type: number
+          format: float
+    PixVerseModel:
+      type: string
+      enum:
+        - v6
+        - v5.6
+        - v5.5
+        - v5
+        - v4.5
+    VideoQuality:
+      type: string
+      enum:
+        - 360p
+        - 540p
+        - 720p
+        - 1080p
+    AspectRatio:
+      type: string
+      enum:
+        - '16:9'
+        - '9:16'
+        - '1:1'
+        - '4:3'
+        - '3:4'
+        - '3:2'
+        - '2:3'
+        - '21:9'
+    VideoGenerationApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          $ref: '#/components/schemas/VideoGenerationResult'
+    VideoResultApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          $ref: '#/components/schemas/VideoResult'
+    ImageGenerationApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          $ref: '#/components/schemas/ImageGenerationResult'
+    ImageResultApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          $ref: '#/components/schemas/ImageResult'
+    ImageUploadApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          $ref: '#/components/schemas/ImageUploadResult'
+    MediaUploadApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          $ref: '#/components/schemas/MediaUploadResult'
+    BalanceApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          type: object
+          additionalProperties: true
+    RestyleListApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    MaskSelectionApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          type: object
+          additionalProperties: true
+    LipSyncTtsListApiResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ErrCode:
+          type: integer
+          format: int32
+        ErrMsg:
+          type: string
+        Resp:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    VideoGenerationResult:
+      type: object
+      additionalProperties: true
+      properties:
+        video_id:
+          type: integer
+          format: int64
+    VideoResult:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        status:
+          type: integer
+          format: int32
+        url:
+          type: string
+          format: uri
+        cover_url:
+          type: string
+          format: uri
+        create_time:
+          type: string
+    ImageGenerationResult:
+      type: object
+      additionalProperties: true
+      properties:
+        image_id:
+          type: integer
+          format: int64
+    ImageResult:
+      type: object
+      additionalProperties: true
+      properties:
+        image_id:
+          type: integer
+          format: int64
+        status:
+          type: integer
+          format: int32
+        url:
+          type: string
+          format: uri
+    ImageUploadResult:
+      type: object
+      additionalProperties: true
+      properties:
+        img_id:
+          type: integer
+          format: int64
+    MediaUploadResult:
+      type: object
+      additionalProperties: true
+      properties:
+        media_id:
+          type: integer
+          format: int64
