@@ -19,6 +19,18 @@ namespace PixVerse
         /// <summary>
         /// Create a text-to-video generation.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::PixVerse.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::PixVerse.AutoSDKHttpResponse<global::PixVerse.VideoGenerationApiResponse>> CreateTextToVideoAsResponseAsync(
+
+            global::PixVerse.TextToVideoRequest request,
+            global::PixVerse.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create a text-to-video generation.
+        /// </summary>
         /// <param name="prompt"></param>
         /// <param name="model"></param>
         /// <param name="duration"></param>
