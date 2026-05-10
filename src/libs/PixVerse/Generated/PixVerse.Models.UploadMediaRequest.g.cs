@@ -50,5 +50,6 @@ namespace PixVerse
         public UploadMediaRequest()
         {
         }
+
     }
 }
