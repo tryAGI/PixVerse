@@ -125,5 +125,6 @@ namespace PixVerse
         public TransitionVideoRequest()
         {
         }
+
     }
 }

@@ -39,5 +39,6 @@ namespace PixVerse
         public ImageUploadResult()
         {
         }
+
     }
 }

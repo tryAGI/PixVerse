@@ -114,5 +114,6 @@ namespace PixVerse
         public MultiTransitionVideoRequest()
         {
         }
+
     }
 }
