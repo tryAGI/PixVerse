@@ -4,24 +4,24 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum VideoQuality
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x1080p,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x360p,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x540p,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x720p,
     }
