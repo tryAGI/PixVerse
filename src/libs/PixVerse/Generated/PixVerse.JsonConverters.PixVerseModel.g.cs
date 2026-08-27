@@ -20,7 +20,7 @@ namespace PixVerse.JsonConverters
                     {
                         return global::PixVerse.PixVerseModelExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

@@ -4,24 +4,24 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageReference
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         public string? Type { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("img_id")]
         public long? ImgId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("ref_name")]
         public string? RefName { get; set; }

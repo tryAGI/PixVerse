@@ -4,24 +4,24 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageTemplateRequest
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("template_id")]
         public long? TemplateId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt")]
         public string? Prompt { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("img_ids")]
         public global::System.Collections.Generic.IList<long>? ImgIds { get; set; }

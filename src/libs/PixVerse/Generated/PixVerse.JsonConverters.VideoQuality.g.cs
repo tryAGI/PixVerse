@@ -20,7 +20,7 @@ namespace PixVerse.JsonConverters
                     {
                         return global::PixVerse.VideoQualityExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

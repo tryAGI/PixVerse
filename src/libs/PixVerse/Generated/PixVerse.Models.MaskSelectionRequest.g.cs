@@ -4,24 +4,24 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class MaskSelectionRequest
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("video_media_id")]
         public long? VideoMediaId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("frame_index")]
         public int? FrameIndex { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("point")]
         public global::PixVerse.Point? Point { get; set; }

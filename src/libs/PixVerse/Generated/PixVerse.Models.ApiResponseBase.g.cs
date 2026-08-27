@@ -4,18 +4,18 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ApiResponseBase
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("ErrCode")]
         public int? ErrCode { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("ErrMsg")]
         public string? ErrMsg { get; set; }

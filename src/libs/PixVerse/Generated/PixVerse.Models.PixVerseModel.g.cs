@@ -4,28 +4,28 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum PixVerseModel
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         V45,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         V5,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         V55,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         V56,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         V6,
     }

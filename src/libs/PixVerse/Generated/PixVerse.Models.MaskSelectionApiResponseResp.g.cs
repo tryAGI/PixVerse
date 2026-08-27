@@ -4,7 +4,7 @@
 namespace PixVerse
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class MaskSelectionApiResponseResp
     {
